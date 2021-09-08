@@ -3,6 +3,7 @@ const Stock=require('../models/stock')
 const async = require('async')
 
 exports.postStock=(req, res, next) => {
+    console.log(req.body)
     const name=req.body.name
     const units=req.body.units
     const stock=new Stock({
@@ -10,7 +11,10 @@ exports.postStock=(req, res, next) => {
         units:units
     })
     stock.save()
-    .then(result => console.log('Saved!!'))
+    .then(result => {
+        res.status(200).json({message:'S'})
+        console.log('Saved!!')
+    })
     .catch(err => console.log(err))
 }
 
