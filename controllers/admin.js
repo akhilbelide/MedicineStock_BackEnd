@@ -3,12 +3,14 @@ const Stock=require('../models/stock')
 const async = require('async')
 
 exports.postStock=(req, res, next) => {
-    console.log(req.body)
     const name=req.body.name
     const units=req.body.units
+    const price=req.body.price;
     const stock=new Stock({
         name:name,
-        units:units
+        units:units,
+        price:price,
+        newStock:0
     })
     stock.save()
     .then(result => {
@@ -20,8 +22,7 @@ exports.postStock=(req, res, next) => {
 
 
 exports.getStock=(req, res, next)=>{
-    Stock.find().select({"name":1, "units":1, "_id":0}).then(resp => {
-        console.log(resp)
+    Stock.find().select({"name":1, "units":1,"_id":0, "newStock":1, "price":1}).then(resp => {
         res.status(200).json({data:resp})
     })
 }
@@ -35,7 +36,7 @@ exports.updateStock=(req, res, next)=>{
             .then(result => console.log(result))
             .catch(err => console.log(err))
         })
-    ).then(resp => res.status(200).json({mnessage:'SUCCESSFULLY UPDATED ALL'}))
+    ).then(resp => res.status(200).json({message:'SUCCESSFULLY UPDATED ALL'}))
 }
 
 

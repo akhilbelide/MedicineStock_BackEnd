@@ -10,6 +10,13 @@ const stockSchema=new Schema({
     units:{
         type:Number,
         required:true
+    },
+    price:{
+        type:Number,
+        required:true
+    },
+    newStock:{
+        type:Number
     }
 })
 
